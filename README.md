@@ -1,27 +1,13 @@
-# SeekersIShop
+# Seeker's iShop
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
+Welcome to my pet project, iShop. A simple ecommerce site built using AngularJS, ASP.NET MVC and SQL server. This project showcases many advanced technologies like Restful API, authentication and authorization using JWT Token, and many more.
 
-## Development server
+## How to Run
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Find the 'databaseGeneration.sql' file in the root directory of ServerApp folder. Run the script in SQL for database creation. Make sure the connectionString is 
+accurate in 'appsettings.json' in the server project.
 
-## Code scaffolding
+Once serverApp is running, make sure the listening port matches the set URL in ClientApp->src->proxy.conf.json. If not, change the proxy port to match.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Finally, run 'ng serve' in cmd in the clientApp directory, and goto localhost:4200 in your browser. That's it! Feel free to leave a comment or get in touch via email at 'fahimseeker@gmail.com' for any confusions or feedback.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
