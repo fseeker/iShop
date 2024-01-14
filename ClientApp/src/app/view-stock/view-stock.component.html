@@ -1,0 +1,10 @@
+<h3>Stock Management</h3>
+
+<ul class="products">
+    <li class="product-item" *ngFor="let product of products">
+        <is-stock-details [product]="product"></is-stock-details>
+    </li>
+</ul>
+
+
+<!-- (adjust)="adjustStock(product, value)" -->

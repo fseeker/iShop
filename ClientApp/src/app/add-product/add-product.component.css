@@ -1,0 +1,45 @@
+.container{
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+.form {
+    background-color: antiquewhite;
+    display: flex;
+    padding: 30px 50px 50px 50px;
+    flex-direction: column;
+    margin-top: 25px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+  }
+
+.form h4, h3{
+    align-self: center;
+}
+
+.input{
+    display: flex;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
+.input label {
+    color: red;
+    padding-right: 3rem;
+    padding-left: 1rem;
+    width: 120px;
+}
+.input input,textarea,select{
+    padding-left: 1rem;
+    width: 200px;
+    min-height: 20px;
+}
+
+form input {
+    align-self: right;
+}
+
+
+
+

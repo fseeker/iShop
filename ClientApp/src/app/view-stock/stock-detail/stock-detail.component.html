@@ -1,0 +1,14 @@
+<div class="product">
+  <div class="product-details">
+    <div class="product-info">
+      <div class="name">{{ product.name }}</div>
+      <div class="category">Part Type: {{ product.category }}</div>
+      <div class="stock">Stock: {{ product.stock }}</div>
+    </div>
+    
+  </div>
+  <div class="options">
+    <input type="number" name="value" [(ngModel)]="value">
+    <button class="cta" (click)="adjustStock(product.id)">Adjust</button>
+  </div>
+</div>

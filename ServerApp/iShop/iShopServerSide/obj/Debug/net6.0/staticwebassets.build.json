@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "WdIU5IsE+vvsz7MwJnNBckG+BOMBXybogBjjCuWY02I=",
+  "Source": "iShopServerSide",
+  "BasePath": "_content/iShopServerSide",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

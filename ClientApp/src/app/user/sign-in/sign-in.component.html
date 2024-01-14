@@ -1,0 +1,25 @@
+<div class="container">
+  <form #signInForm="ngForm" class="form" (ngSubmit)="signIn()">
+    <img class="logo" src="/assets/images/logo.png" />
+    <div class="sign-in">Sign In</div>
+    <div class="sub-text">to continue shopping</div>
+    <input name="email" required #username="ngModel" [(ngModel)]="credentials.userName" placeholder="Username"
+      type="text" />
+    <em class="error" *ngIf="username.errors?.['required'] && username.touched">Username is required</em>
+    <input name="password" required #password="ngModel" [(ngModel)]="credentials.password" placeholder="Password"
+      type="password" />
+    <em class="error" *ngIf="password.invalid && password.touched">Password is required</em>
+    <div class="buttons">
+      <button type="submit" [disabled]="signInForm.form.invalid" class="button cta">
+        Sign In
+      </button>
+    </div>
+    <div class="signInError" *ngIf="signInError">
+      Invalid Username or password. Please try again.
+    </div>
+    <div class="containerSecond">
+      <a [routerLink]="['forgot-password']">Forgot Password?</a>
+      <a routerLink="/sign-up">Sign up</a>
+    </div>
+  </form>
+</div>

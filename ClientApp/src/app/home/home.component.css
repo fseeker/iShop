@@ -1,0 +1,90 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero {
+  background-image: url("/assets/images/home-banner.jpg");
+  background-repeat: no-repeat;
+  height: 300px;
+  background-size: cover;
+  background-position: center center;
+  text-align: center;
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+.promoted {
+  display: flex;
+  justify-content: space-between;
+  margin: 25px;
+  border-top: 2px solid #888;
+  border-bottom: 2px solid #888;
+  padding: 10px 150px 10px 150px;
+}
+
+.promoted img {
+  width: 150px;
+  height: 150px;
+}
+
+.promo-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 40px 0 40px 0;
+}
+
+.promo-main-text {
+  font-size: 24px;
+  text-align: center;
+}
+
+.promo-sub-text {
+  font-size: 20px;
+  text-align: center;
+}
+
+.cta {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 100px 25px 100px;
+  padding: 10px 0;
+}
+
+.part {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.part img {
+  width: 180px;
+  margin-bottom: 10px;
+  padding: 10px;
+  /* background-color: #888; */
+}
+
+.part :hover{
+  font-weight: bold;
+  background-color: #e5e4e4;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.part img:hover {
+  width: 180px;
+  margin-bottom: 10px;
+  padding: 10px;
+  
+}
+
+.part img:not(:hover) {
+  width: 180px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #fff;
+  transition: background-color 0.3s ease-in-out;
+}

@@ -1,0 +1,38 @@
+<div class="container">
+    <form (ngSubmit)="AddProduct()" class="form">
+        <h3>Add new Product</h3>
+        <div class="input">
+            <label for="name">Product name:</label>
+            <input type="text" name="name" [(ngModel)]="addProduct.name">
+        </div>
+        <div class="input">
+            <label for="category">Category:</label>
+            <select id="dropdown" name="category" [(ngModel)]="addProduct.category">
+                <option value="watch">Watch</option>
+                <option value="bracelet">Bracelet</option>
+                <option value="sunglass">Sunglass</option>
+                <option value="belt">Belt</option>
+            </select>
+        </div>
+        <div class="input">
+            <label for="imageName">Upload Image:</label>
+            <input type="text" name="imageName" [(ngModel)]="addProduct.imageName">
+        </div>
+        <div class="input">
+            <label for="description">Description:</label>
+            <textarea rows="3" name="description" [(ngModel)]="addProduct.description"></textarea>
+        </div>
+        <div class="input">
+            <label for="price">Price:</label>
+            <input type="number" name="price" [(ngModel)]="addProduct.price">
+        </div>
+        <div class="input">
+            <label for="discount">Discount:</label>
+            <input type="number" name="discount" [(ngModel)]="addProduct.discount">
+        </div>
+        <input type="submit" value="Add Product" class="btn btn-secondary">
+    </form>
+</div>
+{{addProduct.name}}
+{{addProduct.category}}
+{{addProduct.price}}

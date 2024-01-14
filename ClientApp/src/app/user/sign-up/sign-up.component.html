@@ -1,0 +1,28 @@
+<div class="container">
+    <form #signInForm="ngForm" class="form" (ngSubmit)="signUp()">
+      <img class="logo" src="/assets/images/logo.png" />
+      <div class="sign-in">Register now!</div>
+      <div class="sub-text">to cool offers, promotions and much more</div>
+      <input name="email" required #username="ngModel" [(ngModel)]="credentials.userName" placeholder="Username"
+        type="text" />
+      <em class="error" *ngIf="username.errors?.['required'] && username.touched">Username is required</em>
+      <input name="password" required #password="ngModel" [(ngModel)]="credentials.password" placeholder="Password" type="password" />
+      <em class="error" *ngIf="password.invalid && password.touched">Password is required</em>
+      <input name="confirmPassword" required #confirmPassword="ngModel" [(ngModel)]="credentials.confirmPassword" placeholder="Confirm Password" type="password" />
+      <em class="error" *ngIf="confirmPassword.invalid && confirmPassword.touched">Password is required</em>
+      <em class="error" *ngIf="confirmPassword.value !== password.value && confirmPassword.touched">Passwords do not match</em>
+      <div class="buttons">
+        <button type="submit" [disabled]="signInForm.form.invalid" class="button cta">
+          Sign Up
+        </button>
+      </div>
+      <div class="signInError" *ngIf="signInError">
+        Username is already in use. Please try a new Username.
+      </div>
+    </form>
+  </div>
+{{confirmPassword.value}}
+{{password.value}}
+{{confirmPassword.value !== password.value}}
+{{signInForm.form.invalid}}
+  
