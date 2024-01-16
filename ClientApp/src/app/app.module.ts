@@ -16,6 +16,8 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { ViewStockComponent } from './view-stock/view-stock.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { StockDetailComponent } from './view-stock/stock-detail/stock-detail.component';
+import { StoreModule } from '@ngrx/store';
+import { appUserReducer } from './store/app-user.reducer';
 
 @NgModule({
     declarations: [
@@ -34,6 +36,6 @@ import { StockDetailComponent } from './view-stock/stock-detail/stock-detail.com
     ],
     providers: [],
     bootstrap: [AppComponent],
-    imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule]
+    imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule, StoreModule.forRoot({ User: appUserReducer})]
 })
 export class AppModule { }
