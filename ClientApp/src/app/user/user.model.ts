@@ -1,9 +1,10 @@
 export interface IUser {
-  firstName: string;
-  lastName: string;
+  id:number;
+  fullName: string;
+  userName: string;
   email: string;
   token: string;
-  role: string;
+  role: number;
 }
 
 export interface IUserCredentials {

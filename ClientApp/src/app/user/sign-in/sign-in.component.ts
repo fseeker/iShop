@@ -21,12 +21,11 @@ export class SignInComponent {
     this.userService.signIn(this.credentials).subscribe(
       (data) => {
         if (data.token) {
-          //todo-make session as signed in user
           //set user in store
+          this.store.dispatch(set({UserProfile: data}));
 
-          this.store.dispatch(set({UserProfile: data}))
-
-          this.router.navigate(['/catalog'])
+          //todo-make session as signed in user
+          this.router.navigate(['/catalog']);
         } else {
           this.signInError = true;
         }
