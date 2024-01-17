@@ -86,7 +86,9 @@ namespace iShopServerSide.DAL
                         {
                             Id = reader.GetInt32(0),
                             UserName = reader.GetString(7),
-                            Email = reader.GetString(4)
+                            FullName = reader.GetString(1) + " " + reader.GetString(2) + " " + reader.GetString(3),
+                            Email = reader.GetString(4),
+                            Role = 1
                         };
                         return (true, response);
                     }

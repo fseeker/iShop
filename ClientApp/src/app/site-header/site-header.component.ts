@@ -1,35 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { IUser } from '../user/user.model';
 import { UserService } from '../user/user.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'bot-site-header',
   templateUrl: './site-header.component.html',
   styleUrls: ['./site-header.component.css'],
 })
-export class SiteHeaderComponent implements OnInit {
-  user: IUser | null = null;
+export class SiteHeaderComponent {
+  user: IUser = {} as IUser;
   showSignOutMenu: boolean = false;
 
-  constructor(private userService: UserService) { }
-
-  ngOnInit() {
-    this.userService.getUser().subscribe({
-      next: (user) => { this.user = user }
+  constructor(private store:Store<{ User: IUser }>, private userSvc : UserService) {
+    this.store.select('User').subscribe((data) => {
+      this.user = data;
     })
-  }
+   }
 
   toggleSignOutMenu() {
     this.showSignOutMenu = !this.showSignOutMenu;
   }
 
   signOut() {
-    this.userService.signOut();
+    this.userSvc.signOut();
     this.showSignOutMenu = false;
   }
 
   isUserAuthorized() : boolean{
     //todo
-    return true;
+    if(!this.user){
+      return false;
+    }
+    return this.user?.role > 0;
   }
 }
