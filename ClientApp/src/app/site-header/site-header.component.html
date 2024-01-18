@@ -14,8 +14,8 @@
     <a routerLink="/sign-up" class="cta">Register</a>
   </div>
   <div class="right" *ngIf="user">
+    <h5>Welcome, {{user.fullName}}</h5>
     <div>
-      <p>{{user.fullName}}</p>
       <img src="/assets/images/profile.png" (click)="toggleSignOutMenu()" alt="profile" />
       <div class="sign-out" *ngIf="showSignOutMenu">
         <button (click)="signOut()">Sign Out</button>

@@ -3,6 +3,7 @@ using iShopServerSide.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using System.Security.Claims;
 using System.Text.Json;
 
 namespace iShopServerSide.Controllers
@@ -17,28 +18,14 @@ namespace iShopServerSide.Controllers
             this.ProductRepo = ProductRepo;
         }
         [HttpGet("GetProducts")]
-        public IEnumerable<Product> GetProduct()
+        public IEnumerable<Product> GetProducts()
         {
-            string filePath = "productsJson.json";
-
             try
             {
-                //string jsonString = System.IO.File.ReadAllText(filePath);
 
-                List<Product> robotParts = ProductRepo.GetAllProducts();
-                //JsonSerializer.Deserialize<List<Product>>(jsonString);
+                List<Product> products = ProductRepo.GetAllProducts();
 
-                return robotParts;
-            }
-            catch (FileNotFoundException)
-            {
-                Console.WriteLine("File not found.");
-                return null;
-            }
-            catch (JsonException)
-            {
-                Console.WriteLine("Invalid JSON format.");
-                return null;
+                return products;
             }
             catch (Exception ex)
             {
@@ -47,36 +34,21 @@ namespace iShopServerSide.Controllers
             }
 
         }
-        [HttpGet("cart")]
-        public Product GetCart()
-        {
-            string filePath = "productsJson.json";
+        //[Authorize]
+        //[HttpGet("cart")]
+        //public Product GetCart(int es)
+        //{
+        //    //string userId = User.Identity.FindFirst();
 
-            try
-            {
-                string jsonString = System.IO.File.ReadAllText(filePath);
+        //    ClaimsIdentity identity = User.Identity as ClaimsIdentity;
 
-                List<Product> robotParts = JsonSerializer.Deserialize<List<Product>>(jsonString);
+        //    Claim idClaim = identity.FindFirst("Id");
 
-                return robotParts.First();
-            }
-            catch (FileNotFoundException)
-            {
-                Console.WriteLine("File not found.");
-                return null;
-            }
-            catch (JsonException)
-            {
-                Console.WriteLine("Invalid JSON format.");
-                return null;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-                return null;
-            }
+        //    string userId = idClaim.Value;
 
-        }
+        //    return null;
+        //}
+
         //[Authorize(Roles = "Admin,SuperAdmin")]
         [HttpPost("addproduct")]
         public int AddProduct(Product toAdd)
@@ -87,31 +59,31 @@ namespace iShopServerSide.Controllers
         }
         [Authorize]
         [HttpGet("getCart")]
-        public IEnumerable<CartItem> GetCart(int UserId)
+        public IEnumerable<CartItem> GetCart()
         {
-            string? user = User.Identity.Name;
-            List<CartItem> CartItems = ProductRepo.GetCartItems(UserId);
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+
+            string userId = identity.FindFirst("Id").Value;
+
+            if (string.IsNullOrEmpty(userId)) return new List<CartItem>();
+            List<CartItem> CartItems = ProductRepo.GetCartItems(int.Parse(userId));
             return CartItems;
         }
 
+        [Authorize]
         [HttpPost("addToCart")]
-        public async Task<bool> AddToCart()
+        public string AddToCart(Product product)
         {
-            string requestBody;
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
 
-            using (var reader = new StreamReader(Request.Body))
-            {
-                requestBody = await reader.ReadToEndAsync();
-            }
+            string userId = identity.FindFirst("Id").Value;
 
-            dynamic cartData = JObject.Parse(requestBody);
+            if (string.IsNullOrEmpty(userId)) return "userId not found";
+            if (product == null) return "product not found";
 
-            int productId = cartData.productId;
-            int userId = cartData.userId;
-            int quantity = cartData.quantity;
+            var success = ProductRepo.AddToCart(product.Id, int.Parse(userId), product.Quantity);
 
-            bool success = ProductRepo.AddToCart(productId, userId, quantity);
-            return success;
+            return success.ToString();
         }
 
         [HttpPost("removeFromCart")]

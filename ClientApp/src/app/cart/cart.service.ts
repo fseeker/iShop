@@ -5,51 +5,50 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { IProduct } from '../catalog/product.model';
 import { ICartItem } from './cartItem.model';
 import { UserService } from '../user/user.service';
+import { IUser } from '../user/user.model';
+import { Route, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
   private cart: BehaviorSubject<IProduct[]> = new BehaviorSubject<IProduct[]>([]); //i dont understand behavioursubject
-  userId: number = 10;
+  public user: IUser | null = null;
 
-  constructor(private http: HttpClient, private userService: UserService) {
-    this.http.get<IProduct[]>('/api/product/cart').subscribe({
-      next: (cart) => this.cart.next(cart),
-    });
+  constructor(private http: HttpClient, private userService: UserService, private route:Router) {
+    this.userService.getToken().subscribe((data) => this.user = data);
   }
 
   
 
   getCart(): Observable<ICartItem[]> {
-    const token = this.userService.getToken();
+    if(this.user?.token == '') this.route.navigate(['/sign-in']);
     const headers = new HttpHeaders({
       //'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${this.user?.token}`
     });
-    return this.http.get<ICartItem[]>('/api/product/getCart?UserId='+this.userId, {headers : headers});
+    return this.http.get<ICartItem[]>('/api/product/getCart?UserId='+this.user?.id, {headers : headers});
   }
 
-  add(product: IProduct) {
-    //const newCart = [...this.cart.getValue(), product];
-    //this.cart.next(newCart);
+  addToCart(product: IProduct) {
+    if(this.user?.token == '') this.route.navigate(['/sign-in']);
+    const headers = new HttpHeaders({
+      //'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.user?.token}`
+    });
 
     const requestBody = {
       productId: product.id,
-      userId: this.userId,
+      userId: this.user?.id,
       quantity: 1
     }
 
-    this.http.post('/api/product/addToCart', requestBody).subscribe(() => {
-      console.log('added ' + product.name + ' to cart!');
+    this.http.post<string>('/api/product/addToCart', requestBody, {headers : headers}).subscribe((data) => {
+      console.log(data);
     });
   }
 
-  remove(product: IProduct) {
-    let newCart = this.cart.getValue().filter((i) => i !== product);
-    this.cart.next(newCart);
-    this.http.post('/api/cart', newCart).subscribe(() => {
-      console.log('removed ' + product.name + ' from cart!');
-    });
+  removeFromCart(product: IProduct) {
+    //TODO
   }
 }

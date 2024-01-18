@@ -25,7 +25,7 @@ namespace iShopServerSide.Controllers
 
             if (success)
             {
-                profile.Token = GenerateToken(profile.UserName);
+                profile.Token = GenerateToken(profile.UserName, profile.Id);
                 return profile;
             }
             else
@@ -41,7 +41,7 @@ namespace iShopServerSide.Controllers
             return success;
         }
 
-        private string GenerateToken(string username)
+        private string GenerateToken(string username, int userId)
         {
             //TODO - validate username and password
             //if valid: continue, else return error back
@@ -62,7 +62,7 @@ namespace iShopServerSide.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, username), //userId.ToString()
-                    //new Claim("Key", "value") custom claims can be added this way.
+                    new Claim("Id", userId.ToString()) //custom claims can be added this way.
                 }),
                 // Set the token expiration, issuer, audience, and signing credentials
                 Expires = DateTime.UtcNow.AddDays(7),

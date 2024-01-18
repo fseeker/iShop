@@ -1,6 +1,7 @@
 IF EXISTS (SELECT 1 FROM sys.databases WHERE name = 'iShopDB')
 BEGIN
     DROP DATABASE iShopDB;
+	PRINT 'Database Dropped';
 END
 ELSE
 BEGIN
@@ -67,14 +68,20 @@ CREATE TABLE CartTbl(
 
 INSERT INTO ProductTbl (ProductName, ImageName, Description, Category, Price, Discount, Stock)
 VALUES
-    ('Rolex-1', 'image1.jpg', 'sexy watch', 'watch', 50.00, 0.00, 50),
-    ('Nike-1', 'image2.jpg', 'sexy watch', 'bracelet', 75.00, 0.10, 50),
-    ('Rolex-2', 'image3.jpg', 'sexy watch', 'watch', 100.00, 0.20, 50),
-    ('HotShot-1', 'image4.jpg', 'sexy watch', 'belt', 120.00, 0.15, 50),
-	('Rolex-1', 'image1.jpg', 'sexy watch', 'watch', 50.00, 0.00, 50),
-    ('lovely-sunglass', 'image2.jpg', 'sexy watch', 'sunglass', 75.00, 0.10, 50),
-    ('Rolex-2', 'image3.jpg', 'sexy watch', 'watch', 100.00, 0.20, 50),
-    ('HotShot-1', 'image4.jpg', 'sexy watch', 'belt', 120.00, 0.15, 50);
+    ('Rolex-1', '', 'nice watch', 'watch', 50.00, 0.00, 50),
+    ('Nike-1', '', 'nice bracelet', 'bracelet', 75.00, 0.10, 50),
+    ('Rolex-2', '', 'nice watch', 'watch', 100.00, 0.20, 50),
+    ('HotShot-1', '', 'nice belt', 'belt', 120.00, 0.15, 50),
+	('Rolex-1', '', 'nice watch', 'watch', 50.00, 0.00, 50),
+    ('lovely-sunglass', '', 'nice sunglass', 'sunglass', 75.00, 0.10, 50),
+    ('Rolex-2', '', 'nice watch', 'watch', 100.00, 0.20, 50),
+    ('HotShot-1', '', 'nice belt', 'belt', 120.00, 0.15, 50);
 
+
+INSERT INTO UserCredentialsTbl
+VALUES ('admin','admin'), ('asad','asad');
+
+INSERT INTO UserDetailsTbl
+VALUES (1, 'AdminIsTraitor', 'ToldYa', '', 'admin@gmail.com', null), (2, 'Asad', 'Ullah', 'Sarkar', 'asad@gmail.com', null)
 
 PRINT 'Database recreated and reseeded.';

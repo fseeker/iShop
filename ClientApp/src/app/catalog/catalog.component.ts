@@ -39,7 +39,7 @@ export class CatalogComponent {
   }
 
   addToCart(product: IProduct) {
-    this.cartSvc.add(product);
+    this.cartSvc.addToCart(product);
     this.router.navigate(['/cart']);
   }
 

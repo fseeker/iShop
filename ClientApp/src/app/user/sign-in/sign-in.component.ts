@@ -23,7 +23,9 @@ export class SignInComponent {
         if (data.token) {
           //set user in store
           this.store.dispatch(set({UserProfile: data}));
-
+          window.localStorage.setItem("userToken", data.token);
+          window.localStorage.setItem("userName", data.userName);
+          window.localStorage.setItem("fullName", data.fullName);
           //todo-make session as signed in user
           this.router.navigate(['/catalog']);
         } else {
