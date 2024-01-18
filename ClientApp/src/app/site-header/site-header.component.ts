@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./site-header.component.css'],
 })
 export class SiteHeaderComponent {
-  user: IUser = {} as IUser;
+  user: IUser | null = {} as IUser;
   showSignOutMenu: boolean = false;
 
   constructor(private store:Store<{ User: IUser }>, private userSvc : UserService) {
@@ -24,6 +24,8 @@ export class SiteHeaderComponent {
 
   signOut() {
     this.userSvc.signOut();
+    this.user = null;
+    window.localStorage.clear();
     this.showSignOutMenu = false;
   }
 

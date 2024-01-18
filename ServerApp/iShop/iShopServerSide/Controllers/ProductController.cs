@@ -71,8 +71,9 @@ namespace iShopServerSide.Controllers
         }
 
         [Authorize]
+        //[IgnoreAntiforgeryToken]
         [HttpPost("addToCart")]
-        public string AddToCart(Product product)
+        public string AddToCart(CartAdd product)
         {
             ClaimsIdentity identity = User.Identity as ClaimsIdentity;
 

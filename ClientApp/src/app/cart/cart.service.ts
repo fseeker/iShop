@@ -22,12 +22,14 @@ export class CartService {
   
 
   getCart(): Observable<ICartItem[]> {
-    if(this.user?.token == '') this.route.navigate(['/sign-in']);
+    // if(this.user?.token == null){
+    //   this.route.navigate(['/sign-in']);
+    // } 
     const headers = new HttpHeaders({
       //'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.user?.token}`
     });
-    return this.http.get<ICartItem[]>('/api/product/getCart?UserId='+this.user?.id, {headers : headers});
+    return this.http.get<ICartItem[]>('/api/product/getCart?', {headers : headers});
   }
 
   addToCart(product: IProduct) {
@@ -38,8 +40,7 @@ export class CartService {
     });
 
     const requestBody = {
-      productId: product.id,
-      userId: this.user?.id,
+      id: product.id,
       quantity: 1
     }
 

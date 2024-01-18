@@ -9,12 +9,12 @@
     <a *ngIf="isUserAuthorized()" routerLink="/add-product" routerLinkActive="active">Add Product</a>
     <a *ngIf="isUserAuthorized()" routerLink="/view-stock" routerLinkActive="active">View Stock</a>
   </div>
-  <div class="right" *ngIf="!user.token">
+  <div class="right" *ngIf="!user?.token">
     <a routerLink="/sign-in" routerLinkActive="active">Sign In</a>
     <a routerLink="/sign-up" class="cta">Register</a>
   </div>
-  <div class="right" *ngIf="user">
-    <h5>Welcome, {{user.fullName}}</h5>
+  <div class="right" *ngIf="user?.token">
+    <h5>Welcome, {{user?.fullName}}</h5>
     <div>
       <img src="/assets/images/profile.png" (click)="toggleSignOutMenu()" alt="profile" />
       <div class="sign-out" *ngIf="showSignOutMenu">

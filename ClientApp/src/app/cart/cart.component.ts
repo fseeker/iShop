@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { IProduct } from '../catalog/product.model';
 import { CartService } from './cart.service';
 import { ICartItem } from './cartItem.model';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'bot-cart',
@@ -10,11 +12,20 @@ import { ICartItem } from './cartItem.model';
 })
 export class CartComponent implements OnInit {
   private cart: ICartItem[] = [];
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService, private route: Router) { }
 
   ngOnInit() {
     this.cartService.getCart().subscribe({
       next: (cart) => (this.cart = cart),
+      error: (err) => {
+        let error = err as HttpErrorResponse
+        if(error.status == 401){
+          this.route.navigate(['/sign-in']);
+        }else{
+          //TODO
+          console.log(err);
+        }
+      }
     });
   }
 
